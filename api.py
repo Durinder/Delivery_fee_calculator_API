@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 from fastapi import FastAPI
 from pydantic import BaseModel, ValidationError, validator
@@ -15,15 +16,19 @@ class Order(BaseModel):
 			raise ValueError('no items in order')
 		return v
 
+	# parsing input date string into a datetime object
+	# validation is strict by choice and accepts only full ISO format strings
+	# with timezone included and fractional seconds excluded
+	# eg. YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS±ZZ:ZZ
 	@validator('time')
-	def time_valid(cls, v):
-		print(v)
-		format_string = '%Y-%m-%dT%H:%M:%SZ'
-		try:
-			datetime.strptime(v, format_string)
-		except:
-			raise ValueError(f'time not in ISO format, should be {format_string}')
-		return v
+	def validate_datetime(cls, v):
+		regex = r'^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(Z|[+-](2[0-3]|[01][0-9]):[0-5][0-9])$'
+		match_iso8601 = re.compile(regex).match
+		if match_iso8601(v) is None:
+			raise ValueError('time not in ISO format, use: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS±ZZ:ZZ')
+		return datetime.fromisoformat(v.replace('Z', '+00:00'))
+
+
 
 app = FastAPI()
 

@@ -5,5 +5,5 @@ Content-Type: application/json
 	"cart_value": 790,
 	"delivery_distance": 2235,
 	"number_of_items": 4,
-	"time": "2021-10-12"
+	"time": "2021-12-13T13:00:00"
 }

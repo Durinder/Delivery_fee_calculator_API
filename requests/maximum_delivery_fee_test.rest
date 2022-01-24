@@ -1,0 +1,9 @@
+POST http://127.0.0.1:8000/delivery_fee
+Content-Type: application/json
+
+{
+	"cart_value": 790,
+	"delivery_distance": 22355,
+	"number_of_items": 4,
+	"time": "2021-10-12T13:00:00Z"
+}

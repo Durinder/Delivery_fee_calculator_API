@@ -29,9 +29,8 @@ def get_delivery_fee(order):
 	if fee > rules.maximum_delivery_fee:
 		fee = rules.maximum_delivery_fee
 
+	print(type(order.time))
 	print(order.time)
-""" 	date = datetime.date.fromisoformat(order.time[:-10]) """
-	print(date)
 	print(
 f'small_order_surcharge_fee: {small_order_surcharge}\n\
 delivery_distance_fee: {delivery_distance_fee}\n\
