@@ -17,8 +17,8 @@
 	"maximum_delivery_fee": 1500,
 	"free_delivery_cutoff": 10000,
 	"friday_rush": {
-		"starting_time": "15:00:00Z",
-		"ending_time": "19:00:00Z",
+		"starting_time": "15:00:00+00:00",
+		"ending_time": "19:00:00+00:00",
 		"multiplier": 1.1
 	}
 }
