@@ -28,16 +28,14 @@ class Order(BaseModel):
 		if match_iso8601(v) is None:
 			raise ValueError('time not in ISO format, use: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DDTHH:MM:SS±ZZ:ZZ')
 		try:
-			ret = datetime.fromisoformat(v.replace('Z', '+00:00'))
+			datetime.fromisoformat(v.replace('Z', '+00:00'))
 		except:
 			raise ValueError('incorrect date')
-		return ret
+		return v
 
 app = FastAPI()
 
 @app.post("/delivery_fee")
 async def calculate_delivery_fee(order: Order):
-	print(order.cart_value)
 	fee = get_delivery_fee(order)
-	
 	return { "delivery_fee": fee }
