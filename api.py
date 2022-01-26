@@ -1,10 +1,10 @@
 import re
 from datetime import datetime
 from fastapi import FastAPI
-from pydantic import BaseModel, validator
-from get_delivery_fee import get_delivery_fee
+from pydantic import BaseModel, validator, ValidationError, Extra
+from calculate_delivery_fee import calculate_delivery_fee
 
-class Order(BaseModel):
+class Order(BaseModel, extra=Extra.forbid):
 	cart_value: int
 	delivery_distance: int
 	number_of_items: int
@@ -35,7 +35,7 @@ class Order(BaseModel):
 
 app = FastAPI()
 
-@app.post("/delivery_fee")
-async def calculate_delivery_fee(order: Order):
-	fee = get_delivery_fee(order)
-	return { "delivery_fee": fee }
+@app.put("/delivery_fee")
+async def get_delivery_fee(order: Order):
+	fee = calculate_delivery_fee(order)
+	return {"delivery_fee": fee}
