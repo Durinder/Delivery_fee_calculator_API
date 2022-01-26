@@ -43,13 +43,4 @@ def calculate_delivery_fee(order):
 	if fee > rules['maximum_delivery_fee']:
 		fee = rules['maximum_delivery_fee']
 	
-	print(
-f'small_order_surcharge_fee: {small_order_surcharge}\n\
-delivery_distance_fee: {delivery_distance_fee}\n\
-item_surcharge: {item_surcharge}\n\
-friday_rush: {fee - small_order_surcharge - delivery_distance_fee - item_surcharge}\n\
-fee: {fee}')
 	return fee
-
-if __name__=='__main__':
-	print("hello world")
