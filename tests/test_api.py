@@ -216,7 +216,7 @@ def test_error_wrong_field_name():
 		}
 	)
 	assert response.status_code == 422
-	assert response.json()['detail'][0]['type'] == "value_error.missing"	
+	assert response.json()['detail'][0]['type'] == "value_error.missing" and response.json()['detail'][1]['type'] == "value_error.extra"
 
 def test_error_incorrect_time_no_timezone():
 	response = client.put("/delivery_fee",
