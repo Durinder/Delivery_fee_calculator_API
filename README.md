@@ -1,2 +1,3 @@
 python -m pip install fastapi uvicorn[standard]
-uvicorn api:app --reload
+
+uvicorn api.api:app --reload
