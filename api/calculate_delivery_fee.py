@@ -6,9 +6,6 @@ def calculate_delivery_fee(order):
 	with open(os.path.join(os.path.dirname(__file__), "config.json"), "r") as f:
 		rules = json.load(f)
 
-	""" with open('data.json', 'w') as outfile:
-		json.dump(rules, outfile, ensure_ascii=False, indent=4) """
-	
 	#free delivery
 	if order.cart_value >= rules['free_delivery_cutoff']:
 		return 0

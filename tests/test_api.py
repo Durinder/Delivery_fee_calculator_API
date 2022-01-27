@@ -166,6 +166,18 @@ def test_example_friday_rush():
 	assert response.status_code == 200
 	assert response.json() == {"delivery_fee": 781}
 
+def test_example_timezone_plus_microseconds():
+	response = client.put("/delivery_fee",
+	json = {
+		"cart_value": 790,
+		"delivery_distance": 2235,
+		"number_of_items": 4,
+		"time": "2021-03-12T13:00:00.012345Z"
+		}
+	)
+	assert response.status_code == 200
+	assert response.json() == {"delivery_fee": 710}
+
 # misc tests
 def test_float_in_input():
 	response = client.put("/delivery_fee",
@@ -247,6 +259,18 @@ def test_error_incorrect_time_missing_seconds():
 		"delivery_distance": 2235,
 		"number_of_items": 4,
 		"time": "2021-12-13T13:00Z"
+		}
+	)
+	assert response.status_code == 422
+	assert response.json()['detail'][0]['type'] == "value_error"
+
+def test_error_incorrect_time_badly_formatted_microseconds():
+	response = client.put("/delivery_fee",
+	json = {
+		"cart_value": 790,
+		"delivery_distance": 2235,
+		"number_of_items": 4,
+		"time": "2021-03-12T13:00:00.01234Z"
 		}
 	)
 	assert response.status_code == 422
