@@ -1,8 +1,9 @@
+import os
 import json
 import datetime
 
 def calculate_delivery_fee(order):
-	with open("config.json", "r") as f:
+	with open(os.path.join(os.path.dirname(__file__), "config.json"), "r") as f:
 		rules = json.load(f)
 
 	""" with open('data.json', 'w') as outfile:
@@ -31,9 +32,7 @@ def calculate_delivery_fee(order):
 	#friday rush
 	date, time = order.time.split('T')
 	if datetime.date.fromisoformat(date).weekday() == 4:
-		print('FRIDAY!')
 		time = datetime.time.fromisoformat(time.replace('Z', '+00:00'))
-		print(time)
 		start = datetime.time.fromisoformat(rules['friday_rush']['starting_time'].replace('Z', '+00:00'))
 		end = datetime.time.fromisoformat(rules['friday_rush']['ending_time'].replace('Z', '+00:00'))
 		if time >= start and time < end:
@@ -42,5 +41,11 @@ def calculate_delivery_fee(order):
 	#maximum delivery fee
 	if fee > rules['maximum_delivery_fee']:
 		fee = rules['maximum_delivery_fee']
-	
+
+	print(
+f'small_order_surcharge_fee: {small_order_surcharge}\n\
+delivery_distance_fee: {delivery_distance_fee}\n\
+item_surcharge: {item_surcharge}\n\
+friday_rush: {fee - small_order_surcharge - delivery_distance_fee - item_surcharge}\n\
+fee: {fee}')
 	return fee

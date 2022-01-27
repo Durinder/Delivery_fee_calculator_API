@@ -1,12 +1,10 @@
-from xml.etree.ElementInclude import include
 from fastapi.testclient import TestClient
-from pyparsing import rest_of_line
 
-from api import app
+from api.api import app
 
 client = TestClient(app)
 
-# example tests
+# example test
 def test_example():
     response = client.put("/delivery_fee",
     json = {

@@ -2,7 +2,7 @@ import re
 from datetime import datetime
 from fastapi import FastAPI
 from pydantic import BaseModel, validator, Extra
-from calculate_delivery_fee import calculate_delivery_fee
+from api.calculate_delivery_fee import calculate_delivery_fee
 
 class Order(BaseModel, extra=Extra.forbid):
 	cart_value: int
