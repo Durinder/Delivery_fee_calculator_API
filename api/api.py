@@ -1,6 +1,10 @@
 import re
+import os
+import json
+from types import SimpleNamespace
+from functools import lru_cache
 from datetime import datetime
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from pydantic import BaseModel, validator, Extra
 from .calculate_delivery_fee import calculate_delivery_fee
 
@@ -34,7 +38,12 @@ class Order(BaseModel, extra=Extra.forbid):
 
 app = FastAPI()
 
+@lru_cache(maxsize=1)
+def get_rules():
+	with open(os.path.join(os.path.dirname(__file__), "config.json"), "r") as f:
+ 		return json.load(f, object_hook=lambda d: SimpleNamespace(**d))
+
 @app.put("/delivery_fee")
-async def get_delivery_fee(order: Order):
-	fee = calculate_delivery_fee(order)
+def get_delivery_fee(order: Order, rules = Depends(get_rules)):
+	fee = calculate_delivery_fee(order, rules)
 	return {"delivery_fee": fee}
