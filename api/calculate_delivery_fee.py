@@ -1,8 +1,15 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .api import Order
+
 import os
 import json
 import datetime
 
-def calculate_delivery_fee(order):
+
+def calculate_delivery_fee(order: Order) -> int:
 	with open(os.path.join(os.path.dirname(__file__), "config.json"), "r") as f:
 		rules = json.load(f)
 
