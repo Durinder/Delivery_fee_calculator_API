@@ -1,11 +1,9 @@
 from __future__ import annotations
 import datetime
-
 from types import SimpleNamespace
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .api import Order
-
 
 def calculate_delivery_fee(order: Order, rules: SimpleNamespace) -> int:
 
