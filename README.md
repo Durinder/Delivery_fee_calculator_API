@@ -44,7 +44,7 @@ Dependancies can be installed with:
 
 Alternatively install the following:
 
-```python -m pip install fastapi uvicorn[standard]```
+```python -m pip install fastapi uvicorn[standard] pytest requests```
 
 Start server in development mode:
 
