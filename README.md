@@ -6,7 +6,7 @@ This is an HTTP API for calculating delivery fees.
 ## Specifics
 API accepts requests with JSON formatted payloads and outputs the calculated delivery fee in JSON in the response payload.
 
-API is built with FastAPI in Python.
+API is built with FastAPI in Python 3.8.10.
 ### Request format
 ```
 {"cart_value": 790, "delivery_distance": 2235, "number_of_items": 4, "time": "2021-10-12T13:00:00Z"}
